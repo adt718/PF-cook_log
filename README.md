@@ -8,7 +8,9 @@ cook_log
 
 ### サイトテーマ
 
-cook log
+クックログのサイトの詳細についてですが、主に自分や他のユーザーが作った料理の投稿で、料理の作り方や、所要時間、
+材料名、分量、作り方のコツやポイントを掲載するサイトです。もし、気になった料理があればお気に入りリストに追加し、
+コメントやフォローやフォロワーが可能です。
 
 ### テーマを選んだ理由
 
@@ -23,6 +25,8 @@ cook log
 一人暮らしで自炊に困っている時や趣味で好きな料理を作りたい時
 
 ## 機能一覧
+一般的な料理共有サイトでは料理動画を導入していますが、私のサイトは音声認識機能を取り入れて、料理名の検索を
+より簡易的に行い、検索効率と便利性を高める事を目的としています。
 
 https://docs.google.com/spreadsheets/d/1HKY2Kk9qNmFCrasxQkF6D4YRZGscHoPFvQTFOSr3zEs/edit?usp=sharing
 
@@ -33,4 +37,5 @@ https://docs.google.com/spreadsheets/d/1HKY2Kk9qNmFCrasxQkF6D4YRZGscHoPFvQTFOSr3
 - フレームワーク：Ruby on Rails
 - JS ライブラリ：jQuery
 - IDE：Cloud9
+
 
