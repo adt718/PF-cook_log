@@ -60,3 +60,16 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+group :development, :test do
+  gem 'rspec-rails', '~> 4.0.0.beta2'
+  gem 'spring-commands-rspec'
+  gem 'rails-controller-testing'
+end
+
+
+group :test do
+gem 'webdrivers'
+end
+
+gem 'devise'
