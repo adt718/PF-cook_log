@@ -63,4 +63,7 @@ config.include Devise::Test::IntegrationHelpers, type: :system
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.include FactoryBot::Syntax::Methods  # 追記
+  config.include Devise::Test::IntegrationHelpers, type: :system
 end
