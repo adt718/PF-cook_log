@@ -1,5 +1,6 @@
-inherir_from:
+inherit_from:
   - .rubocop_airbnb.yml
+
 
 
 Rails:
