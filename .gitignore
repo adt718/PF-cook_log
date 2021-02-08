@@ -32,3 +32,5 @@
 
 # Ignore gems
 /vendor
+
+/.env
