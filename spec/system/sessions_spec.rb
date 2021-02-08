@@ -35,6 +35,7 @@ RSpec.describe "Sessions", type: :system do
         expect(page).to have_content 'ログインしたままにする'
         expect(page).to have_css 'input#session_remember_me'
       end
+
       it "ログインボタンが表示される" do
         expect(page).to have_button 'ログイン'
       end
@@ -48,6 +49,7 @@ RSpec.describe "Sessions", type: :system do
         visit root_path
         expect(page).not_to have_content "メールアドレスとパスワードの組み合わせが誤っています"
       end
+    end
 
       it "有効なユーザーでログインする前後でヘッダーが正しく表示されていることを確認" do
         expect(page).to have_link 'クックログとは？', href: about_path
@@ -67,5 +69,4 @@ RSpec.describe "Sessions", type: :system do
       end
     end
   end
-end
 end
