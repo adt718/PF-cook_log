@@ -1,6 +1,10 @@
 <% provide(:title, 'ユーザー一覧') %>
 <div class="container">
   <h1>ユーザー一覧</h1>
+  <%= will_paginate %>
   <ul class="users">
-<%= render 'users', user: @user %></ul>
+    users: <%= @users %>
+<%= render 'users', users: @users %>
+  <%= will_paginate %>
+</ul>
 </div>
