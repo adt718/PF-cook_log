@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :update]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
 
 
@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   def new
@@ -41,6 +42,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+     @user = User.find(params[:id])
+    # 管理者ユーザーの場合
+    if current_user.admin?
+      @user.destroy
+      flash[:success] = "ユーザーの削除に成功しました"
+      redirect_to users_url
+    # 管理者ユーザーではないが、自分のアカウントの場合
+    elsif current_user?(@user)
+      @user.destroy
+      flash[:success] = "自分のアカウントを削除しました"
+      redirect_to root_url
+    else
+      flash[:danger] = "他人のアカウントは削除できません"
+      redirect_to root_url
+    end
+    @user.destroy
+    flash[:success] = "アカウントを削除しました"
+    return redirect_to(root_url) unless logged_in?
+  end
 
   private
      #ユーザー新規作成時に許可する属性
