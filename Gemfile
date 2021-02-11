@@ -55,6 +55,13 @@ group :development, :test do
   gem "factory_bot_rails", "~> 4.10.0"
 end
 
+gem 'carrierwave',             '1.2.2'
+gem "mini_magick",             '>= 4.9.4'
+
+group :production do
+ gem 'fog', '1.42'
+end
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
@@ -86,7 +93,6 @@ group :test do
 gem 'webdrivers'
 end
 
-gem 'devise'
 
 gem 'dotenv-rails'
 group :production do
