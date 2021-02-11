@@ -18,6 +18,11 @@ class User < ApplicationRecord
       BCrypt::Password.create(string, cost: cost)
     end
 
+    # フィード一覧を取得
+    def feed
+      Dish.where("user_id = ?", id)
+    end
+
     # ランダムなトークンを返す
     def new_token
       SecureRandom.urlsafe_base64
