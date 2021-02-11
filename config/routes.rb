@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+ devise_for :users #, controllers: { :sessions => 'users/sessions' }
  get 'sessions/new'
  get :signup,       to: 'users#new'
  root 'static_pages#home'
