@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+ get 'lists/index'
  resources :notifications, only: :index
  get 'sessions/new'
  get :signup,       to: 'users#new'
