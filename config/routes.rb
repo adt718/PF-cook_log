@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
  get 'lists/index'
  resources :notifications, only: :index
+ resources :logs, only: [:create, :destroy]
  get 'sessions/new'
  get :signup,       to: 'users#new'
  root 'static_pages#home'
