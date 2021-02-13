@@ -34,3 +34,6 @@
 /vendor
 
 /.env
+
+# Ignore unnecessary pictures
+/public/uploads/*

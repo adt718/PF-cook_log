@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe "Users", type: :system do
   let!(:user) { create(:user) }
   let!(:admin_user) { create(:user, :admin) }
-
+  let!(:other_user) { create(:user) }
+  let!(:other_dish) { create(:dish, user: other_user) }
   describe "ユーザー一覧ページ" do
     context "管理者ユーザーの場合" do
       it "ぺージネーション、自分以外のユーザーの削除ボタンが表示されること" do
@@ -15,6 +16,77 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_link u.name, href: user_path(u)
           expect(page).to have_content "#{u.name} | 削除" unless u == admin_user
         end
+      end
+    end
+
+     context "お気に入り登録/解除" do
+      before do
+        login_for_system(user)
+      end
+
+       it "お気に入り一覧ページが期待通り表示されること" do
+        visit favorites_path
+        expect(page).not_to have_css ".favorite-dish"
+        user.favorite(dish)
+        user.favorite(other_dish)
+        visit favorites_path
+        expect(page).to have_css ".favorite-dish", count: 2
+        expect(page).to have_content dish.name
+        expect(page).to have_content dish.description
+        expect(page).to have_content "cooked by #{user.name}"
+        expect(page).to have_link user.name, href: user_path(user)
+        expect(page).to have_content other_dish.name
+        expect(page).to have_content other_dish.description
+        expect(page).to have_content "cooked by #{other_user.name}"
+        expect(page).to have_link other_user.name, href: user_path(other_user)
+        user.unfavorite(other_dish)
+        visit favorites_path
+        expect(page).to have_css ".favorite-dish", count: 1
+        expect(page).to have_content dish.name
+      end
+
+       it "トップページからお気に入り登録/解除ができること", js: true do
+        visit root_path
+        link = find('.like')
+        expect(link[:href]).to include "/favorites/#{dish.id}/create"
+        link.click
+        link = find('.unlike')
+        expect(link[:href]).to include "/favorites/#{dish.id}/destroy"
+        link.click
+        link = find('.like')
+        expect(link[:href]).to include "/favorites/#{dish.id}/create"
+      end
+
+        it "ユーザー個別ページからお気に入り登録/解除ができること", js: true do
+        visit user_path(user)
+        link = find('.like')
+        expect(link[:href]).to include "/favorites/#{dish.id}/create"
+        link.click
+        link = find('.unlike')
+        expect(link[:href]).to include "/favorites/#{dish.id}/destroy"
+        link.click
+        link = find('.like')
+        expect(link[:href]).to include "/favorites/#{dish.id}/create"
+      end
+
+      it "料理個別ページからお気に入り登録/解除ができること", js: true do
+        visit dish_path(dish)
+        link = find('.like')
+        expect(link[:href]).to include "/favorites/#{dish.id}/create"
+        link.click
+        link = find('.unlike')
+        expect(link[:href]).to include "/favorites/#{dish.id}/destroy"
+        link.click
+        link = find('.like')
+        expect(link[:href]).to include "/favorites/#{dish.id}/create"
+      end
+
+      it "料理のお気に入り登録/解除ができること" do
+        expect(user.favorite?(dish)).to be_falsey
+        user.favorite(dish)
+        expect(user.favorite?(dish)).to be_truthy
+        user.unfavorite(dish)
+        expect(user.favorite?(dish)).to be_falsey
       end
     end
 
@@ -164,5 +236,18 @@ RSpec.describe "Users", type: :system do
       it "プロフィール編集ページへのリンクが表示されていることを確認" do
       expect(page).to have_link 'プロフィール編集', href: edit_user_path(user)
       end
+
+
+      context "ユーザーのフォロー/アンフォロー処理", js: true do
+      it "ユーザーのフォロー/アンフォローができること" do
+        login_for_system(user)
+        visit user_path(other_user)
+        expect(page).to have_button 'フォローする'
+        click_button 'フォローする'
+        expect(page).to have_button 'フォロー中'
+        click_button 'フォロー中'
+        expect(page).to have_button 'フォローする'
+      end
+    end
     end
   end

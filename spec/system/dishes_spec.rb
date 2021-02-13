@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Dishes", type: :system do
   let!(:user) { create(:user) }
-  let!(:dish) { create(:dish, user: user) }
+  let!(:dish) { create(:dish, :picture, user: user) }
   describe "料理登録ページ" do
     before do
       login_for_system(user)
@@ -70,6 +70,7 @@ RSpec.describe "Dishes", type: :system do
         expect(page).to have_content dish.reference
         expect(page).to have_content dish.required_time
         expect(page).to have_content dish.popularity
+        expect(page).to have_link nil, href: dish_path(dish), class: 'dish-picture'
       end
 
       it "入力部分に適切なラベルが表示されること" do
@@ -123,6 +124,12 @@ RSpec.describe "Dishes", type: :system do
         fill_in "人気度", with: 5
         click_button "登録する"
         expect(page).to have_content "料理が登録されました！"
+      end
+
+       it "画像無しで登録すると、デフォルト画像が割り当てられること" do
+        fill_in "料理名", with: "イカの塩焼き"
+        click_button "登録する"
+        expect(page).to have_link(href: dish_path(Dish.first))
       end
 
       it "無効な情報で料理登録を行うと料理登録失敗のフラッシュが表示されること" do

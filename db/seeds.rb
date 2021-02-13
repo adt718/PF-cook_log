@@ -30,6 +30,14 @@ end
                reference: "https://cookpad.com/recipe/2798655",
                required_time: 30,
                popularity: 5,
-               cook_memo: "初めて作った割にはうまくできた！"
+               cook_memo: "初めて作った割にはうまくできた！",
                user_id: 1)
 end
+
+# リレーションシップ
+users = User.all
+user  = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }

@@ -1,6 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require 'capybara/rspec'
+require 'carrierwave/test/matchers'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)

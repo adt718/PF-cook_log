@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy,
+                                        :following, :followers]
 
   def show
     @user = User.find(params[:id])
@@ -64,6 +65,19 @@ class UsersController < ApplicationController
     return redirect_to(root_url) unless logged_in?
   end
 
+  def following
+    @title = "フォロー中"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "フォロワー"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
   private
      #ユーザー新規作成時に許可する属性
     def user_params

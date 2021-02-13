@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe "料理編集", type: :request do
   let!(:user) { create(:user) }
   let!(:dish) { create(:dish, user: user) }
+  let(:picture2_path) { File.join(Rails.root, 'spec/fixtures/test_dish2.jpg') }
+  let(:picture2) { Rack::Test::UploadedFile.new(picture2_path) }
   let!(:other_user) { create(:user) }
 
   context "認可されたユーザーの場合" do
@@ -21,7 +23,7 @@ RSpec.describe "料理編集", type: :request do
                                                reference: "https://cookpad.com/recipe/2798655",
                                                required_time: 30,
                                                popularity: 5 } }
-      redirect_to dish
+      redirect_to dish                         picture: picture2 } }
       follow_redirect!
       expect(response).to render_template('dishes/show')
     end

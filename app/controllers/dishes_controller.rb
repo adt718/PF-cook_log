@@ -13,6 +13,11 @@ before_action :correct_user, only: [:edit, :update]
     @dish = Dish.find(params[:id])
   end
 
+  def dish_params
+      params.require(:dish).permit(:name, :description, :portion, :tips,
+                                   :reference, :required_time, :popularity, :cook_memo, :picture)
+  end
+
   def update
     @dish = Dish.find(params[:id])
     if @dish.update_attributes(dish_params)
