@@ -14,6 +14,7 @@ Rails.application.routes.draw do
  resources :users
  resources :dishes
  resources :relationships, only: [:create, :destroy]
+ resources :comments, only: [:create, :destroy]
   resources :users do
     member do
      get :following, :followers

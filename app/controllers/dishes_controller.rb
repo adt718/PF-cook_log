@@ -3,6 +3,7 @@ before_action :logged_in_user
 before_action :correct_user, only: [:edit, :update]
   def show
     @dish = Dish.find(params[:id])
+    @comment = Comment.new
   end
 
   def new
@@ -14,7 +15,7 @@ before_action :correct_user, only: [:edit, :update]
   end
 
   def dish_params
-      params.require(:dish).permit(:name, :description, :portion, :tips,
+    params.require(:dish).permit(:name, :description, :portion, :tips,
                                    :reference, :required_time, :popularity, :cook_memo, :picture)
   end
 
