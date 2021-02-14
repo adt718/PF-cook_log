@@ -23,7 +23,11 @@ RSpec.describe "料理編集", type: :request do
                                                reference: "https://cookpad.com/recipe/2798655",
                                                required_time: 30,
                                                popularity: 5 } }
-      redirect_to dish                         picture: picture2 } }
+                                               picture: picture,
+                                               ingredients_attributes: [
+                                               name: "編集-じゃがいも",
+                                               quantity: "編集-2個"] } }
+      redirect_to dish
       follow_redirect!
       expect(response).to render_template('dishes/show')
     end

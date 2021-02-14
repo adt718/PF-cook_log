@@ -30,13 +30,18 @@ class User < ApplicationRecord
       BCrypt::Password.create(string, cost: cost)
     end
 
+    # フィード一覧を取得
+    def feed
+      Dish.where("user_id = ?", id)
+    end
+
     # ユーザーのステータスフィードを返す
-  def feed
-    following_ids = "SELECT followed_id FROM relationships
-                     WHERE follower_id = :user_id"
-    Dish.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id", user_id: id)
-  end
+    def feed
+      following_ids = "SELECT followed_id FROM relationships
+                       WHERE follower_id = :user_id"
+      Dish.where("user_id IN (#{following_ids})
+                       OR user_id = :user_id", user_id: id)
+    end
 
     # ランダムなトークンを返す
     def new_token

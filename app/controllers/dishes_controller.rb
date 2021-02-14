@@ -4,6 +4,15 @@ before_action :correct_user, only: [:edit, :update]
 
   def index
     @log = Log.new
+
+    # CSV出力時のファイル名指定
+    respond_to do |format|
+      format.html
+      format.csv {
+        send_data render_to_string,
+                  filename: "みんなの料理一覧_#{Time.current.strftime('%Y%m%d_%H%M')}.csv"
+      }
+    end
   end
 
   def show
@@ -14,6 +23,7 @@ before_action :correct_user, only: [:edit, :update]
 
   def new
     @dish = Dish.new
+    @dish.ingredients.build
   end
 
   def edit
@@ -22,7 +32,8 @@ before_action :correct_user, only: [:edit, :update]
 
   def dish_params
     params.require(:dish).permit(:name, :description, :portion, :tips,
-                                   :reference, :required_time, :popularity, :cook_memo, :picture)
+                                   :reference, :required_time, :popularity, :cook_memo, :picture,
+                                ingredients_attributes: [:id, :name, :quantity])
   end
 
   def update

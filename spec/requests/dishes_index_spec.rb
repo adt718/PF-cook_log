@@ -19,5 +19,10 @@ RSpec.describe "料理一覧ページ", type: :request do
       expect(response).to have_http_status "302"
       expect(response).to redirect_to login_path
     end
+    it "CSV出力がエラーなく行えること" do
+      login_for_request(user)
+      get dishes_path(format: :csv)
+      expect(response).to have_http_status "200"
+    end
   end
 end

@@ -21,6 +21,15 @@
           <% end %>
         </span>
       </div>
+      <div class="dish-ingredient">
+        <p class="title-ingredient-mini">【材料】</p>
+        <% dish.ingredients.each_with_index do |ing, i| %>
+          <% if ing.name.present? %>
+            <%= "｜" unless i == 0 %><%= ing.name %>: <%= ing.quantity %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="dish-other-info">
       <% if current_user == dish.user %>
         <%= render "logs/new_form_mini" %>
       <% end %>

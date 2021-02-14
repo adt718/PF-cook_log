@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Dishes", type: :system do
   let!(:user) { create(:user) }
-  let!(:dish) { create(:dish, :picture, user: user) }
+  let!(:dish) { create(:dish, :picture, :ingredients, user: user) }
   describe "料理登録ページ" do
     before do
       login_for_system(user)
@@ -16,6 +16,27 @@ RSpec.describe "Dishes", type: :system do
       click_link "編集"
     end
 
+   describe "料理一覧ページ" do
+    context "CSV出力機能" do
+      before do
+        login_for_system(user)
+      end
+
+      it "トップページからCSV出力が行えること" do
+        visit root_path
+        click_link 'みんなの料理をCSV出力'
+        expect(page.response_headers['Content-Disposition']).to \
+          include("みんなの料理一覧_#{Time.current.strftime('%Y%m%d_%H%M')}.csv")
+      end
+
+      it "プロフィールページからCSV出力が行えること" do
+        visit user_path(user)
+        click_link 'みんなの料理をCSV出力'
+        expect(page.response_headers['Content-Disposition']).to \
+          include("みんなの料理一覧_#{Time.current.strftime('%Y%m%d_%H%M')}.csv")
+      end
+    end
+  end
      context "ログ登録＆削除" do
       context "料理詳細ページから" do
         it "自分の料理に対するログ登録＆削除が正常に完了すること" do
@@ -108,6 +129,13 @@ RSpec.describe "Dishes", type: :system do
         expect(page).to have_content '作り方参照用URL'
         expect(page).to have_content '所要時間 [分]'
         expect(page).to have_content '人気度 [1~5]'
+        expect(page).to have_css 'p.title-ingredient-name', text: '材料（10種類まで登録可）', count: 1
+        expect(page).to have_css 'p.title-ingredient-quantity', text: '量', count: 1
+      end
+
+       it "材料入力部分が10行表示されること" do
+        expect(page).to have_css 'input.ingredient_name', count: 10
+        expect(page).to have_css 'input.ingredient_quantity', count: 10
       end
     end
 
@@ -142,6 +170,8 @@ RSpec.describe "Dishes", type: :system do
         expect(page).to have_content dish.required_time
         expect(page).to have_content dish.popularity
         expect(page).to have_link nil, href: dish_path(dish), class: 'dish-picture'
+        expect(page).to have_content i.name
+        expect(page).to have_content i.quantity
       end
 
       it "入力部分に適切なラベルが表示されること" do
@@ -153,6 +183,10 @@ RSpec.describe "Dishes", type: :system do
         expect(page).to have_content '所要時間 [分]'
         expect(page).to have_content '人気度 [1~5]'
         expect(page).to have_content 'クックメモ'
+        expect(page).to have_css 'label[for=dish_ingredients_attributes_0_name]',
+                               text: '材料（10種類まで登録可）', count: 1
+        expect(page).to have_css 'label[for=dish_ingredients_attributes_0_quantity]',
+                               text: '量', count: 1
       end
     end
 
@@ -161,6 +195,8 @@ RSpec.describe "Dishes", type: :system do
         fill_in "料理名", with: "編集：イカの塩焼き"
         fill_in "説明", with: "編集：冬に食べたくなる、身体が温まる料理です"
         fill_in "分量", with: 3
+        fill_in "dish[ingredients_attributes][0][name]", with: "編集-豆腐"
+        fill_in "dish[ingredients_attributes][0][quantity]", with: "編集-2個"
         fill_in "コツ・ポイント", with: "編集：ピリッと辛めに味付けするのがオススメ"
         fill_in "作り方参照用URL", with: "henshu-https://cookpad.com/recipe/2798655"
         fill_in "所要時間", with: 60
@@ -174,6 +210,8 @@ RSpec.describe "Dishes", type: :system do
         expect(dish.reload.reference).to eq "henshu-https://cookpad.com/recipe/2798655"
         expect(dish.reload.required_time).to eq 60
         expect(dish.reload.popularity).to eq 1
+        expect(dish.reload.ingredients.first.name).to eq "編集-豆腐"
+        expect(dish.reload.ingredients.first.quantity).to eq "編集-2個"
       end
 
       it "無効な更新" do
@@ -182,6 +220,12 @@ RSpec.describe "Dishes", type: :system do
         expect(page).to have_content '料理名を入力してください'
         expect(dish.reload.name).not_to eq ""
       end
+    end
+  end
+
+      it "材料入力部分が10行表示されること" do
+      expect(page).to have_css 'input.ingredient_name', count: 10
+      expect(page).to have_css 'input.ingredient_quantity', count: 10
     end
   end
 
@@ -194,6 +238,8 @@ RSpec.describe "Dishes", type: :system do
         fill_in "作り方参照用URL", with: "https://cookpad.com/recipe/2798655"
         fill_in "所要時間", with: 30
         fill_in "人気度", with: 5
+        fill_in "dish[ingredients_attributes][0][name]", with: "豆腐"
+        fill_in "dish[ingredients_attributes][0][quantity]", with: "2個"
         click_button "登録する"
         expect(page).to have_content "料理が登録されました！"
       end
@@ -277,7 +323,13 @@ RSpec.describe "Dishes", type: :system do
         create(:dish, name: 'かに鍋', user: other_user)
         create(:dish, name: '野菜炒め', user: user)
         create(:dish, name: '野菜カレー', user: other_user)
-
+        # 材料も含めて検索に引っかかること
+        create(:ingredient, name: 'かにの切り身', dish: Dish.first)
+        fill_in 'q_name_or_ingredients_name_cont', with: 'かに'
+        click_button '検索'
+        expect(page).to have_css 'h3', text: "”かに”の検索結果：3件"
+        within find('.dishes') do
+          expect(page).to have_css 'li', count: 3
         # 誰もフォローしない場合
         fill_in 'q_name_cont', with: 'かに'
         click_button '検索'
@@ -307,6 +359,7 @@ RSpec.describe "Dishes", type: :system do
           expect(page).to have_css 'li', count: 2
         end
       end
+     end
 
       it "検索ワードを入れずに検索ボタンを押した場合、料理一覧が表示されること" do
         fill_in 'q_name_cont', with: ''
@@ -316,7 +369,7 @@ RSpec.describe "Dishes", type: :system do
           expect(page).to have_css 'li', count: Dish.count
         end
       end
-    end
+
 
     context "ログインしていない場合" do
       it "検索窓が表示されないこと" do
