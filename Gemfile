@@ -57,6 +57,9 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rubocop-airbnb'
   gem "factory_bot_rails", "~> 4.10.0"
+  gem 'rspec-rails', '~> 4.0.0.beta2'
+  gem 'spring-commands-rspec'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -74,32 +77,17 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'webdrivers'
+end
+
+group :production do
+  gem 'mysql2'
+  gem 'fog-aws'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem 'carrierwave',             '1.2.2'
-gem "mini_magick",             '>= 4.9.4'
-gem 'ransack'
-
-group :production do
- gem 'fog', '1.42'
-end
-
-group :development, :test do
-  gem 'rspec-rails', '~> 4.0.0.beta2'
-  gem 'spring-commands-rspec'
-  gem 'rails-controller-testing'
-end
-
-
-group :test do
-gem 'webdrivers'
-end
-
-
 gem 'dotenv-rails'
-group :production do
-  gem 'mysql2'
-end
+gem 'carrierwave','1.2.2'
+gem "mini_magick",'>= 4.9.4'
+gem 'ransack'
