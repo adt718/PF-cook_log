@@ -1,5 +1,9 @@
 <%= form_with model: @dish, local: true do |f| %>
   <%= render 'shared/error_messages', model: @dish %>
+   <span class="picture">
+    <%= f.label :picture %>　<span class="input-unneed">※任意</span>
+    <%= f.file_field :picture, accept: 'image/jpeg,image/png', class: 'form-control', id: 'dish_picture' %>
+  </span>
   <div class = 'form-group'>
     <%= f.label :name %>　<span class="input-need">※必須</span>
     <%= f.text_field :name, class: 'form-control', id: 'dish_name' %>
@@ -7,10 +11,6 @@
   <div class = 'form-group'>
     <%= f.label :description %>　<span class="input-unneed">※任意</span>
     <%= f.text_field :description, size: "60x4", class: 'form-control', id: 'dish_description' %>
-  </div>
-  <div class = 'form-group'>
-    <%= f.label :portion %> [分量]　<span class="input-unneed">※任意</span>
-    <%= f.text_field :portion, class: 'form-control', id: 'dish_portion' %>
   </div>
   <div class = 'form-group'>
     <%= f.label :portion %> [人分]　<span class="input-unneed">※任意</span>

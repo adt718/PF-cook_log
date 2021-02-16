@@ -4,7 +4,7 @@ before_action :correct_user, only: [:edit, :update]
 
   def index
     @log = Log.new
-
+    @dishes = Dish.all
     # CSV出力時のファイル名指定
     respond_to do |format|
       format.html
@@ -64,7 +64,7 @@ before_action :correct_user, only: [:edit, :update]
       flash[:success] = "料理が登録されました！"
       Log.create(dish_id: @dish.id, content: @dish.cook_memo)
       redirect_to root_url
-      redirect_to dish_path(@dish)
+      redirect_to dish_path and return(@dish.id)
     else
       render 'dishes/new'
     end

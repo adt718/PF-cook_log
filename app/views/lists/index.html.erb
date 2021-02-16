@@ -7,7 +7,7 @@
     </div>
     <% if @lists.present? %>
       <ol class="lists">
-        <%= render @lists %>
+        <%= render 'lists', lists: @lists %>
       </ol>
     <% end %>
   </div>

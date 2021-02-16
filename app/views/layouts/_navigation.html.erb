@@ -1,4 +1,4 @@
-<nav class="fh5co-nav navbar-fixed-top" role="navigation">
+<div class="fh5co-loader" style="display: none;"></div>
   <div class="top-menu">
     <div class="container">
       <div class="row">
@@ -21,7 +21,7 @@
                 <%= link_to favorites_path do %><span class="fas fa-heart"></span> <span>お気に入り</span><% end %>
               </li>
               <li class="header-link">
-                <%= link_to lists_path do %><span class="fas fa-list-alt"></span> <span>作る予定リスト</span><% end %>
+                <%= link_to lists_index_path do %><span class="fas fa-list-alt"></span> <span>作る予定リスト</span><% end %>
               </li>
               <li class="has-dropdown">
                 <%= link_to current_user do %>

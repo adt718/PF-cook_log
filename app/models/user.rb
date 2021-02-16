@@ -21,6 +21,9 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  def feed
+    Dish.where("user_id = ?", id)
+  end
 
   class << self
     # 渡された文字列のハッシュ値を返す
@@ -28,11 +31,6 @@ class User < ApplicationRecord
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                     BCrypt::Engine.cost
       BCrypt::Password.create(string, cost: cost)
-    end
-
-    # フィード一覧を取得
-    def feed
-      Dish.where("user_id = ?", id)
     end
 
     # ユーザーのステータスフィードを返す
