@@ -1,5 +1,5 @@
 <%= form_for(@comment) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+  <%= render 'shared/error_messages', model: @comment %>
   <%= hidden_field_tag :dish_id, @dish.id %>
   <div class="row">
     <div class="col-md-8 col-md-offset-1">

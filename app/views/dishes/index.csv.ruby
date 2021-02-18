@@ -1,14 +1,14 @@
 require 'csv'
 
-CSV.generate do |csv|
+CSV.generate(force_quotes: true, encoding:Encoding::SJIS) do |csv|
   # 1行目にラベルを追加
-  csv_column_labels = %w(名前 説明 作った人 作り方参照用URL\
-                         コツ・ポイント 所要時間[分] 人気度 分量[人分] 最初に作った日時\
-                         材料1の名前 材料1の分量 材料2の名前 材料2の分量\
-                         材料3の名前 材料3の分量 材料4の名前 材料4の分量\
-                         材料5の名前 材料5の分量 材料6の名前 材料6の分量\
-                         材料7の名前 材料7の分量 材料8の名前 材料8の分量\
-                         材料9の名前 材料9の分量 材料10の名前 材料10の分量)
+  csv_column_labels = ["名前","説明","作った人","作り方参照用URL", \
+                      "コツ・ポイント","所要時間[分]","人気度","分量[人分]","最初に作った日時" \
+                      "材料1の名前","材料1の分量","材料2の名前","材料2の分量", \
+                      "材料3の名前","材料3の分量","材料4の名前","材料4の分量", \
+                      "材料5の名前","材料5の分量","材料6の名前","材料6の分量", \
+                      "材料7の名前","材料7の分量","材料8の名前","材料8の分量", \
+                      "材料9の名前","材料9の分量","材料10の名前","材料10の分量"]
   csv << csv_column_labels
   # 各料理のカラム値を追加
   current_user.feed.each do |dish|
@@ -36,7 +36,17 @@ CSV.generate do |csv|
     # 材料の数だけカラムを追加する
     i = 0
     while i <= number_of_ingredients
-      csv_column_values.push(dish.ingredients[i].name, dish.ingredients[i].quantity)
+      column = dish.ingredients[i]
+      name = nil
+      quantity = nil
+      if column == nil
+        name = ""
+        quantity = ""
+      else
+        name = column.name
+        quantity = column.quantity
+      end
+      csv_column_values.push(name, quantity)
       i += 1
     end
     # 最終的なcsv_column_valuesをcsvのセルに追加

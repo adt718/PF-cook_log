@@ -6,9 +6,11 @@
     <% else %>
       <h3>料理一覧</h3>
     <% end %>
+    <% @dishes.each do |dish| %>
     <ul class="dishes">
-      <%= render @dishes %>
+      <%= render 'dish', dish: dish %>
     </ul>
-    <%= will_paginate @dishes %>
+    <% end %>
+    <%= will_paginate @dishes  %>
   </div>
 </div>

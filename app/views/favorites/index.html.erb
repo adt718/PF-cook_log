@@ -7,7 +7,7 @@
     </div>
     <% if @favorites.present? %>
       <ol class="favorites">
-        <%= render 'favorites' , favorites: @favorites %>
+        <%= render 'favorite', favorites:  @favorites %>
       </ol>
     <% end %>
   </div>

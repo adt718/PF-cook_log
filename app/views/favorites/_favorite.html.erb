@@ -1,3 +1,4 @@
+<% favorites.each do |favorite| %>
 <% @dish = Dish.find(favorite.dish_id) %>
 <% user = @dish.user %>
 <li id="favorite-<%= favorite.id %>">
@@ -12,3 +13,4 @@
     </div>
   </div>
 </li>
+<% end %>
