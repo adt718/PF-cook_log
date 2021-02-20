@@ -676,3 +676,8 @@ img.use-picture {
   margin-bottom: 30px;
 }
 
+.alert {
+  padding: $alert-padding;
+  margin-bottom: $line-height-computed;
+  border: 1px solid transparent;
+  border-radius: $alert-border-radius;

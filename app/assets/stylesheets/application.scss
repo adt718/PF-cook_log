@@ -12,5 +12,18 @@
  *
  *= require_tree .
  *= require_self
- */
 
+ */
+@import "bootstrap";
+// @import "style.scss";
+// @import "bootstrap-sprockets";
+// @import "bootstrap.scss";
+// @import "custom.scss";
+// @import "icomoon/style";
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
+//= require rails-ujs
+//= require activestorage
+//= require turbolinks
+//= require_tree .
