@@ -1,0 +1,7 @@
+<%=# link_to "/favorites/#{@dish.id}/create",
+ link_to favorites_path(@dish.id),
+            method: :post,
+            class: 'like',
+            remote: true do %>
+  <div class="like-btn-like"><i class="fa fa-heart"></i> お気に入りに登録する</div>
+<% end %>

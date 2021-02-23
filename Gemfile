@@ -36,11 +36,30 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '3.3.5'
+
+gem 'bootstrap', '~> 4.5'
+
+gem 'font-awesome-sass', '~> 5.13'
+
+gem 'bcrypt', '3.1.16'
+
+gem 'faker'
+
+gem 'jquery-rails', '4.3.1'
+
+gem 'will_paginate',           '3.1.7'
+
+gem 'bootstrap-will_paginate', '1.0.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rubocop-airbnb'
+  gem "factory_bot_rails", "~> 4.10.0"
+  gem 'rspec-rails', '~> 4.0.0.beta2'
+  gem 'spring-commands-rspec'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -58,20 +77,17 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'webdrivers'
+end
+
+group :production do
+  gem 'mysql2'
+  gem 'fog'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-group :development, :test do
-  gem 'rspec-rails', '~> 4.0.0.beta2'
-  gem 'spring-commands-rspec'
-  gem 'rails-controller-testing'
-end
-
-
-group :test do
-gem 'webdrivers'
-end
-
-gem 'devise'
+gem 'dotenv-rails'
+gem 'carrierwave','1.2.2'
+gem "mini_magick",'>= 4.9.4'
+gem 'ransack'

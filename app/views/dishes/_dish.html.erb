@@ -1,0 +1,75 @@
+<% @dish = dish %>
+<li id="dish-<%= dish.id %>">
+  <div class="row">
+    <div class="col-md-4">
+       <%= link_to gravatar_for(dish.user, size: 50), dish.user %>
+      <span>
+        <%= link_to((image_tag dish.picture.thumb200.url), dish_path(dish.id), class: 'dish-picture') if dish.picture.url.present? %>
+      </span>
+      <%= render 'users/favorite_form' %>
+      <%= render 'users/list_form' %>
+    </div>
+    <div class="col-md-8 escape-float">
+      <h3 class="dish-name"><%= link_to dish.name, dish_path(dish) %></h3>
+      <div class="dish-description"><%= dish.description %></div>
+      <div class="dish-user">cooked by <%= link_to dish.user.name, user_path(dish.user) %></div>
+      <div class="dish-other-info">
+        <span class="cook_times">作った回数：<%= dish.logs.count %>回　</span>
+        <span class="required_time">所要時間：<%= dish.required_time %>分　</span>
+        <span class="popularity">人気度：
+          <% if @dish.popularity.present? %>
+            <%= "★" * dish.popularity %><%= "☆" * (5 - dish.popularity) %>
+          <% end %>
+        </span>
+      </div>
+      <div class="dish-ingredient">
+        <p class="title-ingredient-mini">【材料】</p>
+        <% dish.ingredients.each_with_index do |ing, i| %>
+          <% if ing.name.present? %>
+            <%= "｜" unless i == 0 %><%= ing.name %>: <%= ing.quantity %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="dish-other-info">
+      <% if current_user == dish.user %>
+
+       <%= form_for(@log) do |f| %>
+      <%= hidden_field_tag :dish_id, @dish.id %>
+      <%= hidden_field_tag :list_id, @list.id if @list.present? %>
+  <p class="add-cooklog"><i class="fas fa-utensils"></i> クックログを追加する</p>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="field">
+        <%= f.text_area :content, placeholder: "クックメモ", :size => "30*30" %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <% if @list.present? %>
+        <%= f.submit "追加", class: "btn-square-shadow",
+                                      data: { confirm: "クックログを追加し、リストから削除しますか？" } %>
+      <% else %>
+        <%= f.submit "追加", class: "btn-square-shadow" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+
+
+      <% end %>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="dish-created-at">
+            <%= time_ago_in_words(dish.created_at) %>前に投稿
+          </div>
+        </div>
+        <% if current_user.admin? || (current_user == dish.user) %>
+          <div class="col-md-6">
+            <%= link_to "削除", dish_path(dish), method: :delete,
+                               data: { confirm: "本当に削除しますか？" } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</li>

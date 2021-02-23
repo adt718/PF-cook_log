@@ -31,4 +31,8 @@
 /config/master.key
 
 # Ignore gems
-/vendor
+/vendor/bundle
+/vendor/.keep
+
+/.env
+
