@@ -2,7 +2,7 @@ class FavoritesController < ApplicationController
   before_action :logged_in_user
 
   def index
-    @favorites = current_user.favorites
+    @favorites = current_user.favorites.paginate(page: params[:page], per_page: 5)
   end
 
   def create
@@ -22,7 +22,12 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @dish = Dish.find(params[:dish_id])
+    @favorite = Favorite.find(params[:id])
+    # @dish = Dish.find(params[:dish_id])
+    if @favorite.destroy
+      flash[:success] = 'お気に入りを解除しました。'
+    end
+  redirect_to  favorites_path
     current_user.favorites.find_by(dish_id: @dish.id).destroy
     respond_to do |format|
       format.html { redirect_to request.referrer || root_url }

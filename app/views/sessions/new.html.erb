@@ -1,6 +1,5 @@
 <% provide(:title, "ログイン") %>
 <%= render 'shared/recruit_login' %>
-<div id="fh5co-portfolio">
   <div class="container">
     <h1>ログイン</h1>
     <div class="row">
@@ -20,11 +19,10 @@
               <span>ログインしたままにする</span>
             <% end %>
           </div>
-          <%= f.submit 'ログイン', class: 'btn btn-primary' %>
+          <%= f.submit 'ログイン', class: 'btn-square-shadow' %>
         <% end %>
         <br>ユーザー登録されていない方は<%= link_to 'こちら', signup_path %><br>
         パスワードをお忘れの方は<%= link_to 'こちら', '#' %>
       </div>
     </div>
   </div>
-</div>

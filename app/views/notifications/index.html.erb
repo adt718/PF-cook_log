@@ -1,8 +1,8 @@
-<div id="fh5co-portfolio">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h3>　通知一覧</h3>
+        <h3>　 通知一覧</h3><a>
+      <%= link_to "全削除", destroy_all_users_notifications_path %></a>
       </div>
     </div>
     <% if @notifications.present? %>
@@ -10,5 +10,5 @@
         <%= render @notifications %>
       </ol>
     <% end %>
+      <%= will_paginate @users  %>
   </div>
-</div>

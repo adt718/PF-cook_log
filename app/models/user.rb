@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships,  source: :followed
   has_many :favorites, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'user_id', dependent: :destroy
   has_many :lists, dependent: :destroy
   attr_accessor :remember_token
   before_save :downcase_email

@@ -4,11 +4,11 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-1">
       <div class="field">
-        <%= f.text_area :content, placeholder: "コメントを追加..." %>
+        <%= f.text_area :content, placeholder: "コメントを追加...", :size => "60*30" %>
       </div>
     </div>
     <div class="col-md-3">
-      <%= f.submit "コメント", class: "btn btn-primary" %>
+      <%= f.submit "コメント", class: "btn btn-square-shadow" %>
     </div>
   </div>
 <% end %>

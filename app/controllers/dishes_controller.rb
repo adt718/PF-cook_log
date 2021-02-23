@@ -30,11 +30,7 @@ before_action :correct_user, only: [:edit, :update]
     @dish = Dish.find(params[:id])
   end
 
-  def dish_params
-    params.require(:dish).permit(:name, :description, :portion, :tips,
-                                   :reference, :required_time, :popularity, :cook_memo, :picture,
-                                ingredients_attributes: [:id, :name, :quantity])
-  end
+
 
   def update
     @dish = Dish.find(params[:id])
@@ -63,7 +59,7 @@ before_action :correct_user, only: [:edit, :update]
     if @dish.save
       flash[:success] = "料理が登録されました！"
       Log.create(dish_id: @dish.id, content: @dish.cook_memo)
-      current_user.list(@dish)
+      # current_user.list(@dish))
       redirect_to dish_path(@dish.id)
     else
       render 'dishes/new'
@@ -73,10 +69,10 @@ before_action :correct_user, only: [:edit, :update]
   private
 
     def dish_params
-      params.require(:dish).permit(:name, :discription, :portion, :tips,
-                                   :reference, :required_time, :popularity, :cook_memo)
+    params.require(:dish).permit(:name, :description, :portion, :tips,
+                                   :reference, :required_time, :popularity, :cook_memo, :picture,
+                                ingredients_attributes: [:id, :name, :quantity])
     end
-
     def correct_user
       # 現在のユーザーが更新対象の料理を保有しているかどうか確認
       @dish = current_user.dishes.find_by(id: params[:id])
