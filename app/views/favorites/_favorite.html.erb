@@ -12,7 +12,6 @@
       <p><%= link_to @dish.name, dish_path(@dish) %></p>
       <p><%= @dish.description %></p>
       <p class="cook-user">cooked by <%= link_to user.name, user_path(user) %></p>
-          <%= will_paginate @users %>
 
     </div>
   </div>

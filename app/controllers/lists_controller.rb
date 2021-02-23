@@ -2,7 +2,7 @@ class ListsController < ApplicationController
  before_action :logged_in_user
 
   def index
-    @lists = current_user.lists
+    @lists = current_user.lists.paginate(page: params[:page], per_page: 5)
     @log = Log.new
   end
 

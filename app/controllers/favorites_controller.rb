@@ -6,13 +6,14 @@ class FavoritesController < ApplicationController
   end
 
   def create
-    @dish = Dish.find(params[:dish_id])
+   # byebug
+    @dish = Dish.find(params[:format])
     @user = @dish.user
     current_user.favorite(@dish)
-    respond_to do |format|
-      format.html { redirect_to request.referrer || root_url }
-      format.js
-    end
+#    respond_to do |format|
+ #     format.html { redirect_to request.referrer || root_url }
+  #    format.js
+   # end
     # 自分以外のユーザーからお気に入り登録があったときのみ通知を作成
     if @user != current_user
       @user.notifications.create(dish_id: @dish.id, variety: 1,
@@ -27,11 +28,11 @@ class FavoritesController < ApplicationController
     if @favorite.destroy
       flash[:success] = 'お気に入りを解除しました。'
     end
-  redirect_to  favorites_path
-    current_user.favorites.find_by(dish_id: @dish.id).destroy
-    respond_to do |format|
-      format.html { redirect_to request.referrer || root_url }
-      format.js
-    end
+    redirect_to  favorites_path
+    # current_user.favorites.find_by(dish_id: @dish.id).destroy
+    # respond_to do |format|
+    #   format.html { redirect_to request.referrer || root_url }
+    #   format.js
+
   end
 end

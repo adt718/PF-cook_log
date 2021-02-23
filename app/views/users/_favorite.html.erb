@@ -1,4 +1,5 @@
-<%= link_to "/favorites/#{@dish.id}/create",
+<%=# link_to "/favorites/#{@dish.id}/create",
+ link_to favorites_path(@dish.id),
             method: :post,
             class: 'like',
             remote: true do %>
