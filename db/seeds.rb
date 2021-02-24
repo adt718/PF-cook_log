@@ -81,9 +81,9 @@ ActiveRecord::Base.transaction do
 end
 
   # フォロー関係
-  user1 = User.find(1)
-  user2 = User.find(2)
-  user3 = User.find(3)
+  user1 = User.first
+  user2 = User.second
+  user3 = User.third
   user3.follow(user1)
   user3.follow(user2)
 
