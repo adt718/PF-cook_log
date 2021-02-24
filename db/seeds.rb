@@ -12,11 +12,13 @@ ActiveRecord::Base.transaction do
   name  = Faker::Name.name
   email = "sample-#{n+1}@example.com"
   password = "password"
-  User.create!(name:  name,
+  user = User.create!(name:  name,
               email: email,
               password:              password,
               password_confirmation: password)
   end
+end
+ActiveRecord::Base.transaction do
 
   10.times do |n|
   Dish.create!(name: Faker::Food.dish,
@@ -27,12 +29,14 @@ ActiveRecord::Base.transaction do
                required_time: 30,
                popularity: 5,
                cook_memo: "初めて作った割にはうまくできた！",
-               user_id: 1)
+               user_id: User.first.id)
   dish = Dish.first
   Log.create!(dish_id: dish.id,
               content: dish.cook_memo)
   end
+end
 
+ActiveRecord::Base.transaction do
   # リレーションシップ
   users = User.all
   user  = users.first
@@ -40,7 +44,9 @@ ActiveRecord::Base.transaction do
   followers = users[3..40]
   following.each { |followed| user.follow(followed) }
   followers.each { |follower| follower.follow(user) }
+end
 
+ActiveRecord::Base.transaction do
   # ユーザー
   User.create!(
   [
@@ -72,6 +78,7 @@ ActiveRecord::Base.transaction do
     },
   ]
   )
+end
 
   # フォロー関係
   user1 = User.find(1)
@@ -80,7 +87,7 @@ ActiveRecord::Base.transaction do
   user3.follow(user1)
   user3.follow(user2)
 
-  # 料理
+ # 料理
   portion = 2
   description1 = "冬に食べたくなる、身体が温まる料理です。"
   description2 = "栄養バランスが良いオススメ料理です。"
@@ -92,12 +99,14 @@ ActiveRecord::Base.transaction do
   cook_memo2 = "味が薄めだったので、次はもう少し濃い味付けにしよう。"
   cook_memo3 = "大好評だったので、また作ろう！"
 
+ActiveRecord::Base.transaction do
+
   ## 3ユーザー、それぞれ5料理ずつ作成
   Dish.create!(
   [
     {
       name: "肉じゃが",
-      user_id: 1,
+      user_id: User.first.id,
       description: description1,
       portion: portion,
       tips: tips1,
@@ -121,7 +130,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "ソーセージと卵の炒め物",
-      user_id: 2,
+      user_id: User.second.id,
       description: description2,
       portion: portion,
       tips: tips2,
@@ -145,7 +154,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "かに玉",
-      user_id: 3,
+      user_id: User.third.id,
       description: description3,
       portion: portion,
       tips: tips3,
@@ -169,7 +178,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "豚こまの生姜焼き",
-      user_id: 1,
+      user_id: User.first.id,
       description: description2,
       portion: portion,
       tips: tips2,
@@ -193,7 +202,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "鶏肉のチーズ照り焼き",
-      user_id: 2,
+      user_id: User.second.id,
       description: description3,
       portion: portion,
       tips: tips2,
@@ -217,7 +226,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "タンドリーチキン",
-      user_id: 3,
+      user_id: User.third.id,
       description: description2,
       portion: portion,
       tips: tips2,
@@ -241,7 +250,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "鶏肉の味噌照り焼き",
-      user_id: 1,
+      user_id: User.first.id,
       description: description3,
       portion: portion,
       tips: tips3,
@@ -265,7 +274,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "豚しゃぶレタス",
-      user_id: 2,
+      user_id: User.second.id,
       description: description2,
       portion: portion,
       tips: tips2,
@@ -289,7 +298,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "チーズオムレツ",
-      user_id: 3,
+      user_id: User.third.id,
       description: description3,
       portion: portion,
       tips: tips3,
@@ -313,7 +322,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "スペインオムレツ",
-      user_id: 1,
+      user_id: User.first.id,
       description: description3,
       portion: portion,
       tips: tips3,
@@ -337,7 +346,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "ぶりの照り焼き",
-      user_id: 2,
+      user_id: User.second.id,
       description: description1,
       portion: portion,
       tips: tips3,
@@ -361,7 +370,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "カレーライス",
-      user_id: 3,
+      user_id: User.third.id,
       description: description1,
       portion: portion,
       tips: tips1,
@@ -385,7 +394,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "麻婆豆腐",
-      user_id: 1,
+      user_id: User.first.id,
       description: description1,
       portion: portion,
       tips: tips3,
@@ -409,7 +418,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "肉豆腐",
-      user_id: 2,
+      user_id: User.second.id,
       description: description2,
       portion: portion,
       tips: tips1,
@@ -433,7 +442,7 @@ ActiveRecord::Base.transaction do
     },
     {
       name: "豚汁",
-      user_id: 3,
+      user_id: User.third.id,
       description: description1,
       portion: portion,
       tips: tips1,
@@ -457,6 +466,8 @@ ActiveRecord::Base.transaction do
     }
   ]
   )
+end
+
 
   dish3 = Dish.find(3)
   dish6 = Dish.find(6)
@@ -495,4 +506,3 @@ ActiveRecord::Base.transaction do
   Log.create!(dish_id: dish.id,
               content: dish.cook_memo)
   end
-end
