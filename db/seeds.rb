@@ -7,11 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ActiveRecord::Base.transaction do
-  User.create!(name:  "山田 太郎",
-            email: "sample@example.com",
-            password:              "foobar",
-            password_confirmation: "foobar",
-            admin: true)
 
   99.times do |n|
   name  = Faker::Name.name
@@ -49,6 +44,13 @@ ActiveRecord::Base.transaction do
   # ユーザー
   User.create!(
   [
+    {
+      name:  "山田 太郎",
+      email: "sample@example.com",
+      password:              "foobar",
+      password_confirmation: "foobar",
+      admin: true},
+
     {
       name:  "山田 良子",
       email: "yamada@example.com",
