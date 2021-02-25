@@ -1,0 +1,17 @@
+<% if current_user == @dish.user %>
+          <div class="log">
+           <%= form_for(@log) do |f| %>
+  <%= f.hidden_field :dish_id, :value => @dish.id %>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-1">
+      <div class="field">
+        <%= f.text_area :content, placeholder: "クックメモ" , :size => "50*30" %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "ログ追加", class: "btn btn-square-shadow" %>
+    </div>
+  </div>
+  </div>
+  <% end %>
+  <% end %>

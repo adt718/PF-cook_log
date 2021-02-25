@@ -6,10 +6,10 @@
     </div>
     <% if @lists.present? %>
       <ol class="lists">
-        <%@lists.each do |list| %>
+      <%@lists.each do |list| %>
 
-<%from_user = User.find(list.from_user_id) %>
-<li id="list-<%= list.dish.id %>">
+  <%from_user = User.find(list.from_user_id) %>
+  <li id="list-<%= list.dish.id %>">
   <div class="list-dish">
     <p><%= list.created_at.strftime("%Y/%m/%d(%a) %H:%M") %> </p>
     <% if list.user_id == list.from_user_id %>
@@ -25,7 +25,7 @@
     <div class="col-md-7">
       <p><%= link_to list.dish.name, dish_path(list.dish) %></p>
       <p class="list-dish-description"><%= list.dish.description %></p>
-      <%= render "logs/new_form_mini" %>
+      <%= render partial: 'logs/new_form_mini', locals:{ dish: list.dish } %>
     </div>
     <div class="col-md-3">
       <%= link_to "リストから削除", "/lists/#{list.id}/destroy",

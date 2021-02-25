@@ -2,7 +2,7 @@
 <% @dish = Dish.find(favorite.dish_id) %>
 <% user = @dish.user %>
 <li id="favorite-<%= favorite.id %>">
-<%= link_to "削除", favorite_path(favorite), method: :delete %>
+<%= link_to "削除", favorite_path(favorite.dish_id), method: :delete %>
 
   <div class="row favorite-dish">
     <div class="col-md-2">

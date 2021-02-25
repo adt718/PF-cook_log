@@ -23,12 +23,16 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @favorite = Favorite.find(params[:id])
+    @dish = Dish.find(params[:id])
     # @dish = Dish.find(params[:dish_id])
-    if @favorite.destroy
-      flash[:success] = 'お気に入りを解除しました。'
+    favorite = Favorite.find_by(user_id: current_user.id, dish_id: @dish.id)
+    result = favorite.destroy
+    unless request.xhr?
+     if result
+       flash[:success] = 'お気に入りを解除しました。'
+     end
+     redirect_to  favorites_path
     end
-    redirect_to  favorites_path
     # current_user.favorites.find_by(dish_id: @dish.id).destroy
     # respond_to do |format|
     #   format.html { redirect_to request.referrer || root_url }
