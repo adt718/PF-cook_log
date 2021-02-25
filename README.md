@@ -1,24 +1,34 @@
-# README
+cook_log
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
 
-Things you may want to cover:
+主に自分や他のユーザーが作った料理の投稿で、料理の作り方や、所要時間、材料名、分量、作り方のコツや
+ポイントを掲載するサイトです。もし、気になった料理があればお気に入りリストに追加し、コメントやフォローや
+フォロワーが可能です。
 
-* Ruby version
+### サイトテーマ
+好きな料理を他のユーザーと投稿し、料理の知識のシェアやコミュニケーションをより充実していく
 
-* System dependencies
+### テーマを選んだ理由
 
-* Configuration
+食べることに興味があり、現在コロナウイルスが流行し、外出自粛やテレワーク等で自炊する人が増えたからです。
 
-* Database creation
+### ターゲットユーザ
 
-* Database initialization
+性別問わず料理に興味がある人や最近自炊を始めた人
 
-* How to run the test suite
+### 主な利用シーン
 
-* Services (job queues, cache servers, search engines, etc.)
+一人暮らしで自炊に困っている時や趣味で好きな料理を作りたい時
 
-* Deployment instructions
+## 機能一覧
+https://docs.google.com/spreadsheets/d/1HKY2Kk9qNmFCrasxQkF6D4YRZGscHoPFvQTFOSr3zEs/edit?usp=sharing
 
-* ...
+## 開発環境
+
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JS ライブラリ：jQuery
+- IDE：Cloud9
+
