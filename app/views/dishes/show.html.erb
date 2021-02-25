@@ -78,23 +78,23 @@
       <%= f.submit "ログ追加", class: "btn btn-square-shadow" %>
     </div>
   </div>
-<% end %>
+  <% end %>
   <%= form_for(Log.new) do |f| %>
   <%= hidden_field_tag :dish_id, @dish.id %>
   <%= hidden_field_tag :list_id, @list.id if @list.present? %>
-  <p class="add-cooklog"><i class="fas fa-utensils"></i> クックログを追加する</p>
+  <!--<p class="add-cooklog"><i class="fas fa-utensils"></i> クックログを追加する</p>-->
   <div class="row">
-    <div class="col-md-9">
-      <div class="field">
-        <%= f.text_area :content, placeholder: "クックメモ", :size => "60*30" %>
-      </div>
-    </div>
+    <!--<div class="col-md-9">-->
+    <!--  <div class="field">-->
+    <!--    <%#= f.text_area :content, placeholder: "クックメモ", :size => "60*30" %>-->
+    <!--  </div>-->
+    <!--</div>-->
     <div class="col-md-3">
       <% if @list.present? %>
         <%= f.submit "追加", class: "btn btn-square-shadow",
                                       data: { confirm: "クックログを追加し、リストから削除しますか？" } %>
       <% else %>
-        <%= f.submit "追加", class: "btn btn-square-shadow" %>
+        <%#= f.submit "追加", class: "btn btn-square-shadow" %>
       <% end %>
     </div>
   </div>
