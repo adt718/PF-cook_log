@@ -2,8 +2,14 @@ class ListsController < ApplicationController
  before_action :logged_in_user
 
   def index
+    #byebug
     @lists = current_user.lists.paginate(page: params[:page], per_page: 5)
     @log = Log.new
+    dish_ids = []
+    @lists.each do |list|
+      dish_ids.append(list.dish_id)
+    end
+    @dishes = Dish.where(id: dish_ids)
   end
 
   def create
