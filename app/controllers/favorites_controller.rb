@@ -6,7 +6,6 @@ class FavoritesController < ApplicationController
   end
 
   def create
-   # byebug
     @dish = Dish.find(params[:format])
     @user = @dish.user
     current_user.favorite(@dish)
