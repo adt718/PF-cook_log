@@ -1,6 +1,8 @@
 # CarrierWaveの設定呼び出し
 require 'carrierwave/storage/file'
 require 'carrierwave/storage/fog'
+# 画像名に日本語が使えるようにする
+CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
 CarrierWave.configure do |config|
    # 本番環境はS3に保存
   pp  "Rails.application.credentials.aws[:access_key_id]"
