@@ -1,22 +1,21 @@
-# CarrierWave.configure do |config|
-#   config.fog_credentials = {
-#     provider: 'AWS',
-#     aws_access_key_id: 'アクセスキー',
-#     aws_secret_access_key: 'シークレットキー',
-#     region: 'ap-northeast-1'
-#   }
+# CarrierWaveの設定呼び出し
+require 'carrierwave/storage/file'
+require 'carrierwave/storage/fog'
+CarrierWave.configure do |config|
+   # 本番環境はS3に保存
+  if Rails.env.production?
+    config.storage = :fog
+    config.fog_provider = 'fog/aws'
+    config.fog_directory  = '[pf-cooklog]'
+    config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/[pf-cooklog]'
+  config.fog_credentials = {
+    provider: 'AWS',
+   # credentialsで管理する場合
+    aws_access_key_id: Rails.application.credentials.aws[:access_key_id],
+    aws_secret_access_key: Rails.application.credentials.aws[:secret_access_key],
+    region: 'ap-northeast-1'
+  }
 
-#   case Rails.env
-#     when 'production'
-#       config.fog_directory = 'dummy'
-#       config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/dummy'
-
-#     when 'development'
-#       config.fog_directory = 'dev.dummy'
-#       config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/dev.dummy'
-
-#     when 'test'
-#       config.fog_directory = 'test.dummy'
-#       config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/test.dummy'
-#   end
-# end
+   config.storage :file
+  end
+end
