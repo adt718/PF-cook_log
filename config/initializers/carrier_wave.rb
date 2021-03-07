@@ -5,9 +5,6 @@ require 'carrierwave/storage/fog'
 CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
 CarrierWave.configure do |config|
    # 本番環境はS3に保存
-  pp  "Rails.application.credentials.aws[:access_key_id]"
-  pp  Rails.application.credentials.aws[:access_key_id]
-
   if Rails.env.production?
     config.storage = :fog
     config.fog_provider = 'fog/aws'
