@@ -10,6 +10,7 @@ CarrierWave.configure do |config|
     config.fog_provider = 'fog/aws'
     config.fog_directory  = 'pf-cooklog'
     config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/pf-cooklog'
+    config.fog_public = false
   config.fog_credentials = {
     provider: 'AWS',
    # credentialsで管理する場合
