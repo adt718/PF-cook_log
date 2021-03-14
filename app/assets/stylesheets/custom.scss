@@ -455,7 +455,7 @@ a.list, a.unlist {
   display: inline-block;
   padding: 0.5em 1em;
   text-decoration: none;
-   border-bottom: solid 4px;
+  border-bottom: solid 4px;
   border-radius: 3px;
   box-shadow: 0 5px 10px black;
 　transform: translate(0, -5px);
@@ -774,6 +774,11 @@ textarea {
   border-bottom: solid 2px #ff0000;
   box-shadow: none;
   text-shadow: -1px -1px rgba(255, 255, 255, 0.3), 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+
+.dropdown {
+  padding: 10px;
 }
 
 
