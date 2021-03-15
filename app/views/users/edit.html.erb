@@ -30,7 +30,7 @@
         </div>
         <%= f.submit "更新する", class: "btn-square-shadow" %>
         <% end %>
-        <% if current_user == @user && !@user.admin %>
+        <% if !current_user.admin || ((current_user.admin && (@user.id == current_user.id)) && !((current_user.name == '採用 太郎') && (current_user.email == 'recruit@example.com'))) %>
         <%= link_to "アカウントを削除する", user_path(@user), method: :delete,
                                     data: { confirm: "本当にこのアカウントを削除してよろしいですか？" } %>
         <% end %>

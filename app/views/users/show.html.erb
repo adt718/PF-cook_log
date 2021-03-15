@@ -20,7 +20,9 @@
             <% if current_user == @user %>
               <div class="account-edit"><%= link_to "プロフィール編集", edit_user_path(@user) %></div>
             <% end %>
-            <% if current_user.admin != false && current_user.email != "recruit@example.com" %>
+            login_user <%= current_user.id %><br>
+            admin? <%= current_user.admin %>
+            <% if !current_user.admin || ((current_user.admin && (@user.id == current_user.id)) && !((current_user.name == '採用 太郎') && (current_user.email == 'recruit@example.com'))) %>
               <div class="account-delete"><%= link_to "アカウント削除", user_path(@user), method: :delete,
                                             data: { confirm: "本当に削除しますか？" } %></div>
             <% end %>
