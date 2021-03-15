@@ -75,6 +75,7 @@ ActiveRecord::Base.transaction do
       email: "recruit@example.com",
       password:              "password",
       password_confirmation: "password",
+      admin: true,
     },
   ]
   )
