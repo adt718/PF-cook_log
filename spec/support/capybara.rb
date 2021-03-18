@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # システムスペック用の設定
 Capybara.register_driver :chrome_headless do |app|
   options = ::Selenium::WebDriver::Chrome::Options.new

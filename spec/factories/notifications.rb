@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :notification do
     dish_id { 1 }
     variety { 1 }
-    content { "" }
+    content { '' }
     from_user_id { 2 }
     association :user
   end

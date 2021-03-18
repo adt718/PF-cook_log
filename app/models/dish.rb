@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dish < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
@@ -13,35 +15,31 @@ class Dish < ApplicationRecord
   validates :description, length: { maximum: 140 }
   validates :tips, length: { maximum: 50 }
   validates :popularity,
-            :numericality => {
-              :only_interger => true,
-              :greater_than_or_equal_to => 1,
-              :less_than_or_equal_to => 5
+            numericality: {
+              only_interger: true,
+              greater_than_or_equal_to: 1,
+              less_than_or_equal_to: 5
             },
             allow_nil: true
   validate  :picture_size
   def picture_size
-      if picture.size > 5.megabytes
-        errors.add(:picture, "：5MBより大きい画像はアップロードできません。")
-      end
+    errors.add(:picture, '：5MBより大きい画像はアップロードできません。') if picture.size > 5.megabytes
   end
 
   # 料理に付属するコメントのフィードを作成
   def feed_comment(dish_id)
-    Comment.where("dish_id = ?", dish_id)
+    Comment.where('dish_id = ?', dish_id)
   end
 
   # 料理に付属するログのフィードを作成
   def feed_log(dish_id)
-    Log.where("dish_id = ?", dish_id)
+    Log.where('dish_id = ?', dish_id)
   end
 
   private
 
   # アップロードされた画像のサイズを制限する
   def picture_size
-    if picture.size > 5.megabytes
-      errors.add(:picture, "：5MBより大きい画像はアップロードできません。")
-    end
+    errors.add(:picture, '：5MBより大きい画像はアップロードできません。') if picture.size > 5.megabytes
   end
 end

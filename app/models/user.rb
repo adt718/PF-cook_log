@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_many :dishes, dependent: :destroy
-  has_many :active_relationships, class_name: "Relationship",
-                                  foreign_key: "follower_id",
+  has_many :active_relationships, class_name: 'Relationship',
+                                  foreign_key: 'follower_id',
                                   dependent: :destroy
-  has_many :passive_relationships, class_name: "Relationship",
-                                   foreign_key: "followed_id",
+  has_many :passive_relationships, class_name: 'Relationship',
+                                   foreign_key: 'followed_id',
                                    dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :following, through: :active_relationships,  source: :followed
@@ -15,7 +17,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token
   before_save :downcase_email
   validates :name, presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
@@ -23,7 +25,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   def feed
-    Dish.where("user_id = ?", id)
+    Dish.where('user_id = ?', id)
   end
 
   class << self
@@ -57,6 +59,7 @@ class User < ApplicationRecord
   # 渡されたトークンがダイジェストと一致したらtrueを返す
   def authenticated?(remember_token)
     return false if remember_digest.nil?
+
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
@@ -85,7 +88,7 @@ class User < ApplicationRecord
     followers.include?(other_user)
   end
 
-   # 料理をお気に入りに登録する
+  # 料理をお気に入りに登録する
   def favorite(dish)
     Favorite.create!(user_id: id, dish_id: dish.id)
   end
@@ -116,10 +119,8 @@ class User < ApplicationRecord
   end
 
   private
-    def downcase_email
-      self.email = email.downcase
-    end
 
+  def downcase_email
+    self.email = email.downcase
+  end
 end
-
-

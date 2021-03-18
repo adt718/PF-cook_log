@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDishes < ActiveRecord::Migration[5.2]
   def change
     create_table :dishes do |t|
@@ -13,6 +15,6 @@ class CreateDishes < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :dishes, [:user_id, :created_at]
+    add_index :dishes, %i[user_id created_at]
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PictureUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -17,11 +19,11 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  def default_url(*args)
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  "/assets/images/default.png"
+  def default_url(*_args)
+    #   # For Rails 3.1+ asset pipeline compatibility:
+    #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+    #
+    '/assets/images/default.png'
   end
 
   # Process files as they are uploaded:
@@ -40,16 +42,17 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # 一覧表示用：200 * 200の正方形に中央から切り抜き
   version :thumb200 do
-    process resize_to_fill: [200, 200, "Center"]
+    process resize_to_fill: [200, 200, 'Center']
   end
 
   def extension_whitelist
-    %w(jpg jpeg png)
+    %w[jpg jpeg png]
   end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 
   # Override the filename of the uploaded files:

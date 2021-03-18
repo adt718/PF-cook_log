@@ -1,9 +1,11 @@
-class ApplicationController < ActionController::Base
- before_action :set_search
- protect_from_forgery with: :exception
- include SessionsHelper
+# frozen_string_literal: true
 
- # フィードから検索条件に該当する料理を検索
+class ApplicationController < ActionController::Base
+  before_action :set_search
+  protect_from_forgery with: :exception
+  include SessionsHelper
+
+  # フィードから検索条件に該当する料理を検索
   def set_search
     if logged_in?
       @search_word = params[:q][:name_or_ingredients_name_cont] if params[:q]
@@ -11,13 +13,18 @@ class ApplicationController < ActionController::Base
       @dishes = @q.result(distinct: true)
     end
   end
+
+# def flash_success message
+#   flash[:success] = message
+# end
   private
-    # ログイン済みユーザーかどうか確認
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "ログインしてください"
-        redirect_to login_url
-      end
+
+  # ログイン済みユーザーかどうか確認
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = 'ログインしてください'
+      redirect_to login_url
     end
+  end
 end

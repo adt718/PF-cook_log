@@ -1,25 +1,27 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "永続セッション機能", type: :request do
+RSpec.describe '永続セッション機能', type: :request do
   let(:user) { create(:user) }
 
-  context "「ログインしたままにする」にチェックを入れてログインする場合" do
+  context '「ログインしたままにする」にチェックを入れてログインする場合' do
     before do
       login_remember(user)
     end
 
-    it "remember_tokenが空でないことを確認" do
+    it 'remember_tokenが空でないことを確認' do
       expect(response.cookies['remember_token']).not_to eq nil
     end
 
-    it "セッションがnilのときでもcurrent_userが正しいユーザーを指すことを確認" do
+    it 'セッションがnilのときでもcurrent_userが正しいユーザーを指すことを確認' do
       expect(current_user).to eq user
       expect(is_logged_in?).to be_truthy
     end
   end
 
-  context "「ログインしたままにする」にチェックを入れずにログインする場合" do
-    it "remember_tokenが空であることを確認" do
+  context '「ログインしたままにする」にチェックを入れずにログインする場合' do
+    it 'remember_tokenが空であることを確認' do
       # クッキーを保存してログイン
       login_remember(user)
       delete logout_path
@@ -31,8 +33,8 @@ RSpec.describe "永続セッション機能", type: :request do
     end
   end
 
-  context "ログアウトする場合" do
-    it "ログイン中のみログアウトすることを確認" do
+  context 'ログアウトする場合' do
+    it 'ログイン中のみログアウトすることを確認' do
       login_for_request(user)
       expect(response).to redirect_to user_path(user)
       # ログアウトする
