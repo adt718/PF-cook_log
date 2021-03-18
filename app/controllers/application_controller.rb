@@ -14,9 +14,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-# def flash_success message
-#   flash[:success] = message
-# end
   private
 
   # ログイン済みユーザーかどうか確認
