@@ -10,12 +10,13 @@ class CommentsController < ApplicationController
     if !@dish.nil? && @comment.save
       flash[:success] = 'コメントを追加しました！'
       # 自分以外のユーザーからコメントがあったときのみ通知を作成
-      if @user != current_user
-        @user.notifications.create(dish_id: @dish.id, variety: 2,
-                                   from_user_id: current_user.id,
-                                   content: @comment.content) # コメントは通知種別2
-        @user.update_attribute(:notification, true)
-      end
+      # if @user != current_user
+      #   @user.notifications.create(dish_id: @dish.id, variety: 2,
+      #                             from_user_id: current_user.id,
+      #                             content: @comment.content) # コメントは通知種別2
+      #   @user.update_attribute(:notification, true)
+      # end
+      @user.create_notification(@dish.id, 2, current_user.id, @comment.content)
     else
       flash[:danger] = '空のコメントは投稿できません。'
     end

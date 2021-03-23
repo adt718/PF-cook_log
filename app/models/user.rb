@@ -118,6 +118,20 @@ class User < ApplicationRecord
     !List.find_by(dish_id: dish.id, from_user_id: id).nil?
   end
 
+  def create_notification(dish_id, variety, from_user_id, content = nil)
+    # 自分以外のユーザーからお気に入り登録があったときのみ通知を作成
+    if id == from_user_id
+      return
+    end
+    notifications.create({
+      dish_id: dish_id,
+      variety: variety,
+      from_user_id: from_user_id,
+      content: content
+    })
+    update_attribute(:notification, true)
+  end
+
   private
 
   def downcase_email

@@ -21,9 +21,23 @@
               <div class="account-edit"><%= link_to "プロフィール編集", edit_user_path(@user) %></div>
             <% end %>
             <br>
-            <% if !current_user.admin || ((current_user.admin && (@user.id == current_user.id)) && !((current_user.name == '採用 太郎') && (current_user.email == 'recruit@example.com'))) %>
-              <div class="account-delete"><%= link_to "アカウント削除", user_path(@user), method: :delete,
-                                            data: { confirm: "本当に削除しますか？" } %></div>
+            <%# ページのユーザの確認 %>
+            <% if @user.name == 'recruit@example.com' %>
+
+            <% elsif @user.admin %>
+
+            <% else %>
+              <%# ログインユーザの確認 %>
+              <% if current_user == @user %>
+                <div class="account-delete"><%= link_to "アカウント削除", user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" } %></div>
+              <% else %>
+                <% if current_user.admin %>
+                  <div class="account-delete"><%= link_to "アカウント削除", user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" } %></div>
+                <% end %>
+                <%# if !current_user.admin || ((current_user.admin && (@user.id == current_user.id)) && !((current_user.name == '採用 太郎') && (current_user.email == 'recruit@example.com'))) %>
+                  <!-- <div class="account-delete"><%#= link_to "アカウント削除", user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" } %></div> -->
+                <%# end %>
+              <% end %>
             <% end %>
             <br>
             <%= render 'follow_form' if logged_in? %>
