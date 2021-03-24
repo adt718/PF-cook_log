@@ -3,8 +3,9 @@
 class ListsController < ApplicationController
   before_action :logged_in_user
 
+  PAGE = 5
   def index
-    @lists = current_user.lists.paginate(page: params[:page], per_page: 5)
+    @lists = current_user.lists.paginate(page: params[:page], per_page: PAGE)
     @log = Log.new
     # dish_ids = []
     # @lists.each do |list|

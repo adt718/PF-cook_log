@@ -17,7 +17,7 @@ class LogsController < ApplicationController
     @dish = @log.dish
     if current_user == @dish.user
       @log.destroy
-      flash[:success] = 'クックログを削除しました'
+      flash[:success] = 'クックログを削除しました！'
     end
     # リスト一覧ページからクックログが作成された場合、その料理をリストから削除
     List.find(params[:list_id]).destroy unless params[:list_id].nil?

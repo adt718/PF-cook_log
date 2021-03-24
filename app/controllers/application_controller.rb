@@ -6,10 +6,11 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   # フィードから検索条件に該当する料理を検索
+  PAGE = 5
   def set_search
     if logged_in?
       @search_word = params[:q][:name_or_ingredients_name_cont] if params[:q]
-      @q = current_user.feed.paginate(page: params[:page], per_page: 5).ransack(params[:q])
+      @q = current_user.feed.paginate(page: params[:page], per_page: PAGE).ransack(params[:q])
       @dishes = @q.result(distinct: true)
     end
   end
