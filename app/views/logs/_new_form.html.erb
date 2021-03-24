@@ -1,6 +1,6 @@
 <% if current_user == @dish.user %>
-          <div class="log">
-           <%= form_for(@log) do |f| %>
+  <div class="log">
+  <%= form_for(@log) do |f| %>
   <%= f.hidden_field :dish_id, :value => @dish.id %>
   <div class="row">
     <div class="col-md-8 col-md-offset-1">

@@ -6,11 +6,10 @@ class ListsController < ApplicationController
   def index
     @lists = current_user.lists.paginate(page: params[:page], per_page: 5)
     @log = Log.new
-    dish_ids = []
-    @lists.each do |list|
-      dish_ids.append(list.dish_id)
-    # dish_ids = @lists.map do |list| list.dish_id
-    end
+    # dish_ids = []
+    # @lists.each do |list|
+    #   dish_ids.append(list.dish_id)
+    dish_ids = @lists.map{ |list| list.dish_id }
     @dishes = Dish.where(id: dish_ids)
   end
 

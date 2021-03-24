@@ -55,7 +55,7 @@ ActiveRecord::Base.transaction do
         email: 'sample@example.com',
         password: 'foobar',
         password_confirmation: 'foobar',
-        admin: true
+        # admin: true
       },
 
       {
@@ -63,7 +63,7 @@ ActiveRecord::Base.transaction do
         email: 'yamada@example.com',
         password: 'foobar',
         password_confirmation: 'foobar',
-        admin: true
+        # admin: true
       },
       {
         name: '鈴木 恵子',
