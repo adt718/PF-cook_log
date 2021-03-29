@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get :signup, to: 'users#new'
   root 'static_pages#home'
   get :about,        to: 'static_pages#about'
-  get :use_of_terms, to: 'static_pages#terms'
+  get :terms, to: 'static_pages#terms'
+  get :privacy_policy, to: 'static_pages#privacy_policy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :favorites
   # get :favorites, to: 'favorites#index'
