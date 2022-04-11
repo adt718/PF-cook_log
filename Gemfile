@@ -38,7 +38,7 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-# gem 'bootstrap-sass', '3.3.5'
+gem 'bootstrap-sass', '3.3.5'
 
 gem 'bootstrap', '~> 4.5'
 
@@ -88,7 +88,8 @@ group :test do
 end
 
 group :production do
-  gem 'fog-aws'
+  # gem 'fog-aws'
+  # gem 'fog'
   gem 'mysql2'
 end
 
