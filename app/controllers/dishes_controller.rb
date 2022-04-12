@@ -64,6 +64,7 @@ class DishesController < ApplicationController
       # current_user.list(@dish)
       redirect_to dish_path(@dish.id)
     else
+      @dishes = Dish.all
       render 'dishes/new'
     end
   end
