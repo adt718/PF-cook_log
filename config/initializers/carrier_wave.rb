@@ -1,6 +1,6 @@
 # CarrierWaveの設定呼び出し
 require 'carrierwave/storage/file'
-require 'carrierwave/storage/fog-aws'
+require 'carrierwave/storage/fog'
 # 画像名に日本語が使えるようにする
 # CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
 # CarrierWave.configure do |config|
