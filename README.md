@@ -21,9 +21,6 @@ cook_log
 
 一人暮らしで自炊に困っている時や趣味で好きな料理を作りたい時
 
-## 機能一覧
-https://docs.google.com/spreadsheets/d/1HKY2Kk9qNmFCrasxQkF6D4YRZGscHoPFvQTFOSr3zEs/edit?usp=sharing
-
 ## 開発環境
 
 - OS：Linux(CentOS)
