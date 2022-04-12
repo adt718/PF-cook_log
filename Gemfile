@@ -88,7 +88,7 @@ group :test do
 end
 
 group :production do
-  gem 'fog-aws', '~> 1.41.0'
+  gem 'fog-aws'
   # gem 'fog'
   gem 'mysql2'
 end
