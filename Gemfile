@@ -42,6 +42,8 @@ gem 'bootstrap-sass', '3.3.5'
 
 # gem 'bootstrap', '~> 4.5'
 
+gem 'pry-byebug', group: :development
+
 gem 'font-awesome-sass', '~> 5.13'
 
 gem 'bcrypt', '3.1.16'
@@ -99,3 +101,4 @@ gem 'dotenv-rails'
 gem 'mini_magick', '>= 4.9.4'
 gem 'ransack'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'pry-rails'
