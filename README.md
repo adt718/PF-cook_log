@@ -23,7 +23,7 @@ cook_log
 
 ## 開発環境
 
-- OS：Windows
+- OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JS ライブラリ：jQuery
