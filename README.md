@@ -23,9 +23,10 @@ cook_log
 
 ## 開発環境
 
-- OS：Linux(CentOS)
+- OS：Windows
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JS ライブラリ：jQuery
 - IDE：Cloud9
+- AWS(EC2)
 
