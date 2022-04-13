@@ -28,4 +28,5 @@ cook_log
 - フレームワーク：Ruby on Rails
 - JS ライブラリ：jQuery
 - IDE：Cloud9
+- AWS(EC2)
 
