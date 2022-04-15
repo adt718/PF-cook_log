@@ -56,7 +56,6 @@ class DishesController < ApplicationController
   end
 
   def create
-    # binding.pry
     @dish = current_user.dishes.build(dish_params)
     if @dish.save
       flash[:success] = '料理が登録されました！'
