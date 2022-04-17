@@ -102,3 +102,5 @@ gem 'mini_magick', '>= 4.9.4'
 gem 'ransack'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'pry-rails'
+gem "aws-sdk-s3", require: false
+gem 'image_processing', '~> 1.2'
